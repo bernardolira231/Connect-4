@@ -65,6 +65,12 @@ body {
   gap: 10px;
 }
 
+.game {
+  background-color: #457cd8;
+  border: 2px solid #2a53a4;
+  padding: 20px;
+}
+
 .turn {
   display: flex;
   justify-content: center;
@@ -121,12 +127,13 @@ body {
 }
 
 .square {
-  width: 100px;
-  height: 100px;
-  border: 2px solid #eee;
+  width: 70px;
+  height: 70px;
+  border: 2px solid #2a53a4;
   border-radius: 5px;
   display: grid;
   place-items: center;
   cursor: pointer;
   font-size: 48px;
+  background-color: #2867d3;
 }
