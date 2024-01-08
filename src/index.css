@@ -32,7 +32,7 @@ body {
 
 .board {
   width: fit-content;
-  margin: 40px auto;
+  margin: 40px auto 0;
   text-align: center;
 }
 
@@ -44,6 +44,7 @@ body {
 .board button {
   padding: 8px 12px;
   margin: 25px;
+  margin-top: 0;
   background: transparent;
   border: 2px solid #eee;
   color: #eee;
