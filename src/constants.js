@@ -22,7 +22,7 @@ for (let x = 0; x < SIZE_X; x++) {
       for (let i = 0; i < WIN_LENGTH; i++) {
         let xi = x + i * dir.x;
         let yi = y + i * dir.y;
-        if (xi < SIZE_X && yi >= 0 && yi < SIZE_Y) {
+        if (xi >= 0 && xi < SIZE_X && yi >= 0 && yi < SIZE_Y) {
           combo.push(xi * SIZE_Y + yi);
         }
       }
