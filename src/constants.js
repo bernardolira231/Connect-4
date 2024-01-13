@@ -32,3 +32,4 @@ for (let x = 0; x < SIZE_X; x++) {
     }
   }
 }
+console.log(`winner:  ${JSON.stringify(WINNER_COMBOS, null, 2)}`);
