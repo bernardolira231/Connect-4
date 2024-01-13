@@ -1,4 +1,3 @@
-
 const getPieceAbove = (boardSize, index) => {
   const aboveIndex = index - boardSize.columns
   if (aboveIndex < 0) return null
@@ -17,7 +16,6 @@ const getPieceLeft = (boardSize, index) => {
 
 const isSequenceOfFourWithMovement = (movement, board, player, index, boardSize, currentCount) => {
   if (currentCount + 1 === 4) return true
-  
   const next = movement(boardSize, index)
   if (next && board[next] === player)
     return isSequenceOfFourWithMovement(movement, board, player, next, boardSize, currentCount + 1)
@@ -26,7 +24,6 @@ const isSequenceOfFourWithMovement = (movement, board, player, index, boardSize,
 }
 
 export const checkWinnerFrom = (boardToCheck, boardSize) => {
-
   const occupiedIndexesByPlayer = boardToCheck.reduce((acc, i, index) => {
     if (i === null) return acc;
     acc[i] = [...(acc[i] ?? []), index]
