@@ -39,26 +39,13 @@ export const checkWinnerFrom = (boardToCheck, boardSize) => {
     const pieces = occupiedIndexesByPlayer[player].sort().reverse()
 
     for (const piece of pieces) {
-      const isColumn = isSequenceOfFourWithMovement((a, b) => getPieceAbove(a, b), boardToCheck, player, piece, boardSize, 0)
-      if (isColumn) {
-        return player;
-      }
-
-      const isDiagRight = isSequenceOfFourWithMovement((a, b) => getPieceAbove(a, getPieceRight(a, b)), boardToCheck, player, piece, boardSize, 0)
-      if (isDiagRight) {
-        return player;
-      }
-
-
-      const isDiagLeft = isSequenceOfFourWithMovement((a, b) => getPieceAbove(a, getPieceLeft(a, b)), boardToCheck, player, piece, boardSize, 0)
-      if (isDiagLeft) {
-        return player;
-      }
-
-      const isLineLeft = isSequenceOfFourWithMovement((a, b) => getPieceLeft(a, b), boardToCheck, player, piece, boardSize, 0)
-      if (isLineLeft) {
-        return player;
-      }
+      const possibleMovements = [
+        () => isSequenceOfFourWithMovement((a, b) => getPieceAbove(a, b), boardToCheck, player, piece, boardSize, 0),
+        () => isSequenceOfFourWithMovement((a, b) => getPieceAbove(a, getPieceRight(a, b)), boardToCheck, player, piece, boardSize, 0),
+        () => isSequenceOfFourWithMovement((a, b) => getPieceAbove(a, getPieceLeft(a, b)), boardToCheck, player, piece, boardSize, 0),
+        () => isSequenceOfFourWithMovement((a, b) => getPieceLeft(a, b), boardToCheck, player, piece, boardSize, 0)
+      ]
+      if (possibleMovements.find(mov => mov())) return player
     }
   }
 
