@@ -5,12 +5,18 @@ import { checkWinnerFrom, checkEndGame } from "./logic/board.js";
 import { WinnerModal } from "./components/WinnerModal.jsx";
 import { saveGameStorage, resetGameStorage } from "./logic/storage/index.js";
 
+const boardSize = {
+  columns: 8,
+  rows: 7
+}
+
 function App() {
   const [board, setBoard] = useState(() => {
     const boardFromStorage = window.localStorage.getItem("board");
     if (boardFromStorage) return JSON.parse(boardFromStorage);
-    return Array(56).fill(null);
+    return Array(boardSize.columns*boardSize.rows).fill(null);
   });
+
 
   const [turn, setTurn] = useState(() => {
     const turnFromStorage = window.localStorage.getItem("turn");
@@ -19,7 +25,7 @@ function App() {
   const [winner, setWinner] = useState(null);
 
   const resetGame = () => {
-    setBoard(Array(56).fill(null));
+    setBoard(Array(boardSize.columns*boardSize.rows).fill(null));
     setTurn(TURNS.X);
     setWinner(null);
     resetGameStorage();
@@ -41,7 +47,7 @@ function App() {
       board: newBoard,
       turn: newTurn,
     });
-    const newWinner = checkWinnerFrom(newBoard);
+    const newWinner = checkWinnerFrom(newBoard, boardSize);
     if (newWinner) {
       setWinner(newWinner);
     } else if (checkEndGame(newBoard)) {
