@@ -2,6 +2,7 @@ import { WINNER_COMBOS } from "../constants";
 
 const getPieceAbove = (boardSize, index) => {
   const aboveIndex = index - boardSize.columns
+  if (aboveIndex < 0) return null
   return aboveIndex
 }
 
