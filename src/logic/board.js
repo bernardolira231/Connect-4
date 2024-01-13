@@ -1,4 +1,3 @@
-import { WINNER_COMBOS } from "../constants";
 
 const getPieceAbove = (boardSize, index) => {
   const aboveIndex = index - boardSize.columns
@@ -18,12 +17,12 @@ const getPieceLeft = (boardSize, index) => {
 
 const isSequenceOfFourWithMovement = (movement, board, player, index, boardSize, currentCount) => {
   if (currentCount + 1 === 4) return true
+  
   const next = movement(boardSize, index)
-  if (next && board[next] === player) {
+  if (next && board[next] === player)
     return isSequenceOfFourWithMovement(movement, board, player, next, boardSize, currentCount + 1)
-  } else {
+  else 
     return false
-  }
 }
 
 export const checkWinnerFrom = (boardToCheck, boardSize) => {
@@ -34,11 +33,8 @@ export const checkWinnerFrom = (boardToCheck, boardSize) => {
     return acc
   }, {});
 
-  const players = Object.keys(occupiedIndexesByPlayer);
-  for (const player of players) {
-    const pieces = occupiedIndexesByPlayer[player].sort().reverse()
-
-    for (const piece of pieces) {
+  for (const player of Object.keys(occupiedIndexesByPlayer)) {
+    for (const piece of occupiedIndexesByPlayer[player].sort().reverse()) {
       const possibleMovements = [
         () => isSequenceOfFourWithMovement((a, b) => getPieceAbove(a, b), boardToCheck, player, piece, boardSize, 0),
         () => isSequenceOfFourWithMovement((a, b) => getPieceAbove(a, getPieceRight(a, b)), boardToCheck, player, piece, boardSize, 0),
@@ -48,10 +44,6 @@ export const checkWinnerFrom = (boardToCheck, boardSize) => {
       if (possibleMovements.find(mov => mov())) return player
     }
   }
-
-  console.log("occupied indexes", Object.entries(occupiedIndexesByPlayer))
-
-
   return null;
 };
 
