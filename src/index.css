@@ -138,3 +138,24 @@ body {
   font-size: 48px;
   background-color: #2867d3;
 }
+
+@media only screen and (max-width: 600px) {
+  .board {
+    margin-top: 80px;
+  }
+
+  .game {
+    padding: 9px;
+  }
+
+  .square {
+    width: 35px;
+    height: 35px;
+    font-size: 24px;
+  }
+
+  .turn .square {
+    width: 55px;
+    height: 55px;
+  }
+}
