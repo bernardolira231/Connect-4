@@ -1,7 +1,6 @@
-import { WINNER_COMBOS } from "../constants";
 
 const getPieceAbove = (boardSize, index) => {
-  const aboveIndex = index - boardSize.columns}
+  const aboveIndex = index - boardSize.columns
   if (aboveIndex < 0) return null
   return aboveIndex
 }
@@ -18,12 +17,12 @@ const getPieceLeft = (boardSize, index) => {
 
 const isSequenceOfFourWithMovement = (movement, board, player, index, boardSize, currentCount) => {
   if (currentCount + 1 === 4) return true
+  
   const next = movement(boardSize, index)
-  if (next && board[next] === player) {
+  if (next && board[next] === player)
     return isSequenceOfFourWithMovement(movement, board, player, next, boardSize, currentCount + 1)
-  } else {
+  else 
     return false
-  }
 }
 
 export const checkWinnerFrom = (boardToCheck, boardSize) => {
@@ -34,37 +33,17 @@ export const checkWinnerFrom = (boardToCheck, boardSize) => {
     return acc
   }, {});
 
-  const players = Object.keys(occupiedIndexesByPlayer);
-  for (const player of players) {
-    const pieces = occupiedIndexesByPlayer[player].sort().reverse()
-
-    for (const piece of pieces) {
-      const isColumn = isSequenceOfFourWithMovement((a, b) => getPieceAbove(a, b), boardToCheck, player, piece, boardSize, 0)
-      if (isColumn) {
-        return player;
-      }
-
-      const isDiagRight = isSequenceOfFourWithMovement((a, b) => getPieceAbove(a, getPieceRight(a, b)), boardToCheck, player, piece, boardSize, 0)
-      if (isDiagRight) {
-        return player;
-      }
-
-
-      const isDiagLeft = isSequenceOfFourWithMovement((a, b) => getPieceAbove(a, getPieceLeft(a, b)), boardToCheck, player, piece, boardSize, 0)
-      if (isDiagLeft) {
-        return player;
-      }
-
-      const isLineLeft = isSequenceOfFourWithMovement((a, b) => getPieceLeft(a, b), boardToCheck, player, piece, boardSize, 0)
-      if (isLineLeft) {
-        return player;
-      }
+  for (const player of Object.keys(occupiedIndexesByPlayer)) {
+    for (const piece of occupiedIndexesByPlayer[player].sort().reverse()) {
+      const possibleMovements = [
+        () => isSequenceOfFourWithMovement((a, b) => getPieceAbove(a, b), boardToCheck, player, piece, boardSize, 0),
+        () => isSequenceOfFourWithMovement((a, b) => getPieceAbove(a, getPieceRight(a, b)), boardToCheck, player, piece, boardSize, 0),
+        () => isSequenceOfFourWithMovement((a, b) => getPieceAbove(a, getPieceLeft(a, b)), boardToCheck, player, piece, boardSize, 0),
+        () => isSequenceOfFourWithMovement((a, b) => getPieceLeft(a, b), boardToCheck, player, piece, boardSize, 0)
+      ]
+      if (possibleMovements.find(mov => mov())) return player
     }
   }
-
-  console.log("occupied indexes", Object.entries(occupiedIndexesByPlayer))
-
-
   return null;
 };
 
