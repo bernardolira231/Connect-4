@@ -7,16 +7,17 @@ import { saveGameStorage, resetGameStorage } from "./logic/storage/index.js";
 
 const boardSize = {
   columns: 8,
-  rows: 7
-}
+  rows: 7,
+};
+
+const boardLength = boardSize.columns * boardSize.rows;
 
 function App() {
   const [board, setBoard] = useState(() => {
     const boardFromStorage = window.localStorage.getItem("board");
     if (boardFromStorage) return JSON.parse(boardFromStorage);
-    return Array(boardSize.columns*boardSize.rows).fill(null);
+    return Array(boardLength).fill(null);
   });
-
 
   const [turn, setTurn] = useState(() => {
     const turnFromStorage = window.localStorage.getItem("turn");
@@ -25,7 +26,7 @@ function App() {
   const [winner, setWinner] = useState(null);
 
   const resetGame = () => {
-    setBoard(Array(boardSize.columns*boardSize.rows).fill(null));
+    setBoard(Array(boardLength).fill(null));
     setTurn(TURNS.X);
     setWinner(null);
     resetGameStorage();
